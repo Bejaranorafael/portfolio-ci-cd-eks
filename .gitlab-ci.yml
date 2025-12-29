@@ -1,0 +1,34 @@
+stages:
+  - build_image
+  - deploy_infra
+  - deploy_app
+
+variables:
+  DOCKER_REGISTRY: "rafaelbejarano/portfolio-app-eks"
+  IMAGE_TAG: $CI_COMMIT_SHORT_SHA
+
+build_image_job:
+  stage: build_image
+  image: docker:latest
+  services:
+    - docker:dind
+  script:
+    - docker login -u $DOCKER_USER -p $DOCKER_PASS
+    - docker build -t $DOCKER_REGISTRY:$IMAGE_TAG ./app
+    - docker push $DOCKER_REGISTRY:$IMAGE_TAG
+
+deploy_infra_job:
+  stage: deploy_infra
+  image: registry.gitlab.com
+  script:
+    - cd infra
+    - terraform init -backend-config="bucket=tu-s3-bucket" -backend-config="key=tf-state/terraform.tfstate" -backend-config="region=us-east-1"
+    - terraform plan
+    - terraform apply -auto-approve
+
+deploy_app_job:
+  stage: deploy_app
+  image: bitnami/kubectl:latest
+  script:
+    - echo "Este paso requiere un script o manifiesto de K8s para desplegar la imagen en EKS."
+    # Ejemplo: kubectl apply -f app/k8s-manifest.yaml
