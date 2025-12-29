@@ -33,6 +33,30 @@ En esta fase, el proyecto evoluciona de un despliegue básico a una arquitectura
 ### 🚀 Impacto Profesional
 Esta fase demuestra la capacidad de gestionar entornos críticos donde la **seguridad** no es opcional y la **visibilidad** del sistema es clave para la toma de decisiones técnicas.
 
+## 💻 Proyecto 3: Automatización de Infraestructura Híbrida (AWS & Windows)
+
+Demostración de habilidades en infraestructura como código para entornos Windows, y automatización de la configuración del Directorio Activo utilizando PowerShell y Terraform.
+
+### 🎯 Objetivo
+Automatizar el despliegue de un **Controlador de Dominio de Active Directory** en AWS, unificando la capa de infraestructura (Terraform) y la capa de configuración (PowerShell).
+
+### 💡 Tecnologías Utilizadas
+*   **IaC:** Terraform (AWS Provider)
+*   **Cloud:** AWS EC2, VPC, Security Groups
+*   **Configuración:** PowerShell
+*   **Sistema:** Windows Server 2019, Active Directory Domain Services (AD DS)
+
+### 🏗️ Ejecución del Proyecto
+1.  **Aprovisionamiento:** Terraform crea una VPC, una subred, un Security Group y una instancia EC2 de Windows Server.
+2.  **User Data:** Al arrancar la instancia, `user_data` ejecuta `ad-setup.ps1`.
+3.  **Configuración:** El script de PowerShell instala el rol de AD DS y promueve el servidor a controlador de dominio para `rafaelcorp.local`.
+
+### ⭐ Impacto Profesional
+Este proyecto demuestra la capacidad de:
+*   Integrar IaC con scripting nativo de Windows (PowerShell).
+*   Automatizar tareas de SysAdmin complejas y repetitivas.
+*   Proveer soluciones de infraestructura híbrida (Cloud + On-Premise/Windows).
+
 Flujo de Trabajo:
 Código: El desarrollador hace un git push al repositorio.
 CI/CD (GitLab CI): El pipeline se dispara automáticamente.
