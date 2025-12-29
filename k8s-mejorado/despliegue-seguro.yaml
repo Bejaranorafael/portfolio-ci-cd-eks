@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-portfolio-segura
+  namespace: produccion-segura
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: portfolio-2025
+  template:
+    metadata:
+      labels:
+        app: portfolio-2025
+    spec:
+      securityContext:
+        runAsNonRoot: true # No permite ejecutar como root
+        runAsUser: 1000
+      containers:
+      - name: app-node
+        image: tu_docker_id/portfolio-app-eks:latest
+        securityContext:
+          allowPrivilegeEscalation: false # Evita escalada de privilegios
+          capabilities:
+            drop: ["ALL"] # Elimina permisos innecesarios del kernel
+        resources:
+          limits:
+            cpu: "500m"
+            memory: "512Mi"
+          requests:
+            cpu: "250m"
+            memory: "256Mi"

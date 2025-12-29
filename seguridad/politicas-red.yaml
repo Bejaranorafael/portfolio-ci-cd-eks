@@ -1,0 +1,16 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: restringir-trafico-externo
+  namespace: produccion-segura
+spec:
+  podSelector:
+    matchLabels:
+      app: portfolio-2025
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          kubernetes.io/metadata.name: kube-system # Solo permite tráfico del sistema (DNS, etc)

@@ -1,0 +1,26 @@
+# Configuración avanzada para Helm
+prometheus:
+  prometheusSpec:
+    retention: 15d # Conservar métricas por 15 días
+    storageSpec:
+      volumeClaimTemplate:
+        spec:
+          accessModes: ["ReadWriteOnce"]
+          resources:
+            requests:
+              storage: 10Gi
+
+grafana:
+  adminPassword: "clave-segura-grafana-2025"
+  persistence:
+    enabled: true
+  dashboardProviders:
+    dashboardproviders.yaml:
+      apiVersion: 1
+      providers:
+      - name: 'default'
+        orgId: 1
+        folder: ''
+        type: file
+        disableDeletion: false
+        editable: true
